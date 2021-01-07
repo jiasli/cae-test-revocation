@@ -8,6 +8,7 @@ from azure.identity import InteractiveBrowserCredential, SharedTokenCacheCredent
 from azure.mgmt.resource.subscriptions import SubscriptionClient
 
 logging.basicConfig(level=logging.DEBUG)
+# Disable redacted logs from ARMHttpLoggingPolicy
 logging.getLogger('azure.core.pipeline.policies.http_logging_policy').setLevel(logging.CRITICAL)
 
 
@@ -18,6 +19,7 @@ TENANT_ID = "54826b22-38d6-4fb2-bad9-b7b93a3e9c5a"  # azuresdkteam.onmicrosoft.c
 
 def test_cae(credential):
     print("testing CAE with " + credential.__class__.__name__)
+    # Enable NetworkTraceLoggingPolicy by setting logging_enable
     client = SubscriptionClient(credential, base_url=ARM_URL, logging_enable=True)
 
     # verify the credential can get a valid access token
